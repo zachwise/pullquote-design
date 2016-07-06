@@ -39,8 +39,8 @@ KL.Pullquote = (function() {
 	// DOM ELEMENTS
 	this.el = {
 		cover_content: 		KL.Dom.get("cover-content"),
-		layout_editor: 		KL.Dom.get("layout-editor"),
-		editor_content: 	{},
+		examples: 			KL.Dom.get("examples"),
+		examples_content: 	{},
 
 	};
 
@@ -79,25 +79,21 @@ KL.Pullquote = (function() {
 		this.quote_compositions = [];
 		
 		// LAYOUT
-		this.el.layout_editor.innerHTML = "";
-		this.el.editor_content = KL.Dom.create('div', 'editor-content', this.el.layout_editor);
+		this.el.examples.innerHTML = "";
+		this.el.examples_content = KL.Dom.create('div', 'editor-content', this.el.examples);
 
 
 		for (i=0; i < this.quotes.length; i++) {
-			// var composition = new KL.QuoteComposition(this.quotes[i], {anchor:false});
-			
-			// composition.addTo(this.el.editor_content);
-			// this.quote_compositions.push(composition);
-
 			this.createComposition(this.quotes[i], false);
-
+			this.createComposition(this.quotes[i], "left");
+			this.createComposition(this.quotes[i], "right");
 		}
 
 	};
 
 	this.createComposition = function(d, anchor) {
 		var composition = new KL.QuoteComposition(d, {anchor:anchor});
-		composition.addTo(this.el.editor_content);
+		composition.addTo(this.el.examples_content);
 		this.quote_compositions.push(composition);
 	};
 

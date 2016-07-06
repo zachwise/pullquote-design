@@ -4102,6 +4102,7 @@ KL.QuoteComposition = KL.Class.extend({
 			quote: "Quote goes here, gonna make it longer to see",
 			cite: "Citation",
 			image: "Description",
+			headline: "Headline",
 			credit: ""
 		};
 	
@@ -4119,10 +4120,6 @@ KL.QuoteComposition = KL.Class.extend({
 		KL.Util.mergeData(this.options, options);
 		KL.Util.mergeData(this.data, data);
 		
-		
-
-		
-		
 		this._el.container = KL.Dom.create("div", this.options.base_classname);
 
 		this._updateClassName();
@@ -4137,7 +4134,7 @@ KL.QuoteComposition = KL.Class.extend({
 	},
 	
 	update: function() {
-		this._update();
+		this._render();
 	},
 
 	/*	Events
@@ -4147,18 +4144,18 @@ KL.QuoteComposition = KL.Class.extend({
 	},
 
 	_onMake: function(e) {
-		var url_vars = "?";
-		url_vars += "anchor=" + this.options.anchor;
-		url_vars += "&quote=" + this._el.blockquote_p.innerHTML;
-		url_vars += "&cite=" + this._el.citation.innerHTML;
-		url_vars += "&image=" + this.data.image;
-		url_vars += "&credit=" + this.data.credit;
+		// var url_vars = "?";
+		// url_vars += "anchor=" + this.options.anchor;
+		// url_vars += "&quote=" + this._el.blockquote_p.innerHTML;
+		// url_vars += "&cite=" + this._el.citation.innerHTML;
+		// url_vars += "&image=" + this.data.image;
+		// url_vars += "&credit=" + this.data.credit;
 		
-		if (!window.location.origin) {
-  			window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
-		}
-		var win = window.open(window.location.origin + "/composition.html" + url_vars, '_blank');
-  		win.focus();
+		// if (!window.location.origin) {
+		// 	window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+		// }
+		// var win = window.open(window.location.origin + "/composition.html" + url_vars, '_blank');
+		// win.focus();
 	},
 
 	_onLoaded: function() {
@@ -4167,9 +4164,39 @@ KL.QuoteComposition = KL.Class.extend({
 	
 	/*	Private Methods
 	================================================== */
+	_determineTextSize: function(q) {
+		var quote_detail = {
+			sizeclass: "",
+			quote: q
+		}
+		
+		if (!this.options.anchor) {
+			if (q.length < 125) {
+				quote_detail.sizeclass = "kl-quote-large";
+			} else if (q.length < 250) {
+				// Normal size, do nothing
+			} else if (q.length < 500) {
+				quote_detail.sizeclass = "kl-quote-small";
+			} else {
+				quote_detail.sizeclass = "kl-quote-ellipsis";
+			}
+		} else {
+			if (q.length > 150) {
+				trace("TOO LONG FOR ANCHOR");
+				quote_detail.sizeclass = "kl-quote-ellipsis";
+			}
+		}
+		
 
-	_update: function() {
-		this._el.blockquote_p.innerHTML = this.data.quote;
+		return quote_detail;
+	},
+
+	_render: function() {
+		var quote_detail = this._determineTextSize(this.data.quote);
+		this._el.blockquote.className = quote_detail.sizeclass;
+		trace(quote_detail)
+		this._el.blockquote_p.innerHTML = quote_detail.quote;
+
 		this._el.citation.innerHTML = this.data.cite;
 		this._el.image.style.backgroundImage = "url('" + this.data.image + "')";
 
@@ -4205,17 +4232,14 @@ KL.QuoteComposition = KL.Class.extend({
 
 		// Create Buttons
 		this._el.button_group 			= KL.Dom.create("div", "btn-group", this._el.container);
-
 		this._el.button_make 			= KL.Dom.create("div", "btn btn-primary btn-right", this._el.button_group);
-
 
 		this._el.button_make.innerHTML = "<span class='glyphicon glyphicon-circle-arrow-down'></span> Save";
 
-
+		// Listener for save button
 		KL.DomEvent.addListener(this._el.button_make, 'click', this._onMake, this);
 
-		
-		this._update();
+		this._render();
 	},
 	
 	_initEvents: function () {
@@ -4266,8 +4290,8 @@ KL.Pullquote = (function() {
 	// DOM ELEMENTS
 	this.el = {
 		cover_content: 		KL.Dom.get("cover-content"),
-		layout_editor: 		KL.Dom.get("layout-editor"),
-		editor_content: 	{},
+		examples: 			KL.Dom.get("examples"),
+		examples_content: 	{},
 
 	};
 
@@ -4306,25 +4330,21 @@ KL.Pullquote = (function() {
 		this.quote_compositions = [];
 		
 		// LAYOUT
-		this.el.layout_editor.innerHTML = "";
-		this.el.editor_content = KL.Dom.create('div', 'editor-content', this.el.layout_editor);
+		this.el.examples.innerHTML = "";
+		this.el.examples_content = KL.Dom.create('div', 'editor-content', this.el.examples);
 
 
 		for (i=0; i < this.quotes.length; i++) {
-			// var composition = new KL.QuoteComposition(this.quotes[i], {anchor:false});
-			
-			// composition.addTo(this.el.editor_content);
-			// this.quote_compositions.push(composition);
-
 			this.createComposition(this.quotes[i], false);
-
+			this.createComposition(this.quotes[i], "left");
+			this.createComposition(this.quotes[i], "right");
 		}
 
 	};
 
 	this.createComposition = function(d, anchor) {
 		var composition = new KL.QuoteComposition(d, {anchor:anchor});
-		composition.addTo(this.el.editor_content);
+		composition.addTo(this.el.examples_content);
 		this.quote_compositions.push(composition);
 	};
 

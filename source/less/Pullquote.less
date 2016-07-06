@@ -102,8 +102,8 @@
 					text-align:left;
 					
 					&[contenteditable="true"] {
-						padding: 5px;
-						outline: 2px dashed fadeout(#CCC, 75);
+						//padding: 5px;
+						//outline: 2px dashed fadeout(#CCC, 75);
 					}
 					&[contenteditable="true"]:hover {
 						//padding: 10px; 
@@ -120,12 +120,34 @@
 						color:@gray-light;
 					}
 				}
+				&.kl-quote-large {
+					p {
+						font-size: 30px;
+						line-height: 38px;
+					}
+				}
+				&.kl-quote-small {
+					p {
+						font-size: 17px;
+						line-height: 22px;
+					}
+				}
+				&.kl-quote-ellipsis {
+					p {
+						font-size: 17px;
+						line-height: 22px;
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-line-clamp: 9;
+						-webkit-box-orient: vertical;  
+					}
+				}
 				cite {
 					padding: 5px;
 					padding-right:10px;
 					&[contenteditable="true"] {
 						//padding: 5px;
-						outline: 2px dashed fadeout(#CCC, 75);
+						//outline: 2px dashed fadeout(#CCC, 75);
 					}
 					&[contenteditable="true"]:hover {
 						//padding: 10px; 
@@ -217,6 +239,25 @@
 		}
 		
 	}
+	&.kl-anchor-left, &.kl-anchor-right {
+		.kl-quotecomposition-container {
+			.kl-quotecomposition-text {
+				blockquote {
+					&.kl-quote-ellipsis {
+						p {
+							font-size: 17px;
+							line-height: 22px;
+							overflow: hidden;
+							display: -webkit-box;
+							-webkit-line-clamp: 9;
+							-webkit-box-orient: vertical;  
+						}
+					}
+				}
+			}
+		}
+	}
+
 }
 
 
