@@ -20,68 +20,13 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/compiled\/img\/grid_01.jpg": {
+	"\/compiled\/img\/06CAMPAIGN-master675.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 55244,
-		"inputAbbreviatedPath": "\/compiled\/img\/grid_01.jpg",
-		"outputAbbreviatedPath": "\/compiled\/img\/grid_01.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/compiled\/img\/grid_02.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 63148,
-		"inputAbbreviatedPath": "\/compiled\/img\/grid_02.jpg",
-		"outputAbbreviatedPath": "\/compiled\/img\/grid_02.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/compiled\/img\/grid_03.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 35119,
-		"inputAbbreviatedPath": "\/compiled\/img\/grid_03.jpg",
-		"outputAbbreviatedPath": "\/compiled\/img\/grid_03.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/compiled\/img\/grid_04.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 53793,
-		"inputAbbreviatedPath": "\/compiled\/img\/grid_04.jpg",
-		"outputAbbreviatedPath": "\/compiled\/img\/grid_04.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/compiled\/img\/grid_05.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 34497,
-		"inputAbbreviatedPath": "\/compiled\/img\/grid_05.jpg",
-		"outputAbbreviatedPath": "\/compiled\/img\/grid_05.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/compiled\/img\/grid_06.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 48614,
-		"inputAbbreviatedPath": "\/compiled\/img\/grid_06.jpg",
-		"outputAbbreviatedPath": "\/compiled\/img\/grid_06.jpg",
+		"initialSize": 73973,
+		"inputAbbreviatedPath": "\/compiled\/img\/06CAMPAIGN-master675.jpg",
+		"outputAbbreviatedPath": "\/compiled\/img\/06CAMPAIGN-master675.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0

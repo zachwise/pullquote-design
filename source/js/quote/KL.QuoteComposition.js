@@ -26,8 +26,7 @@ KL.QuoteComposition = KL.Class.extend({
 			image: {},
 			button_group: {},
 			button_tweet: {},
-			button_download: {},
-			button_make: {}
+			button_download: {}
 		};
 		
 		// Data
@@ -44,7 +43,8 @@ KL.QuoteComposition = KL.Class.extend({
 			editable: true,
 			anchor: false,
 			classname: "",
-			base_classname: "kl-quotecomposition"
+			base_classname: "kl-quotecomposition",
+			download_rendered: false
 		};
 	
 		this.animator = null;
@@ -76,7 +76,17 @@ KL.QuoteComposition = KL.Class.extend({
 		this.fire("clicked", this.options);
 	},
 
-	_onMake: function(e) {
+	_onDownload: function(e) {
+		if (this.options.download_rendered) {
+			this._el.button_download.click();
+		} else {
+			this._makeDownload(e);
+		}
+		
+		trace("download");
+	},
+
+	_makeDownload: function(e) {
 		// var url_vars = "?";
 		// url_vars += "anchor=" + this.options.anchor;
 		// url_vars += "&quote=" + this._el.blockquote_p.innerHTML;
@@ -89,16 +99,27 @@ KL.QuoteComposition = KL.Class.extend({
 		// }
 		// var win = window.open(window.location.origin + "/composition.html" + url_vars, '_blank');
 		// win.focus();
-
+		var _self = this;
 		html2canvas(this._el.composition_container, {
-			width: this._el.composition_container.offsetWidth,
-			allowTaint:true,
+			//width: this._el.composition_container.offsetWidth,
+			//allowTaint:true,
+			useCORS:"true",
+			letterRendering:"true",
+			logging:true,
 			onrendered: function(canvas) {
 				trace("RENDERED");
-				document.body.appendChild(canvas);
+				//document.body.appendChild(canvas);
+
+				var dataURL = canvas.toDataURL('image/png');
+				_self._el.button_download.href=dataURL;
+				_self._el.button_download.download = "pullquote.png";
+				_self.options.download_rendered = true;
+				_self._onDownload(e);
 			}
 		});
 	},
+
+
 
 	_onLoaded: function() {
 		this.fire("loaded", this.options);
@@ -144,6 +165,7 @@ KL.QuoteComposition = KL.Class.extend({
 
 		this._el.blockquote_p.contentEditable = this.options.editable;
 		this._el.citation.contentEditable = this.options.editable;
+
 		
 	},
 
@@ -173,13 +195,13 @@ KL.QuoteComposition = KL.Class.extend({
 		this._el.image					= KL.Dom.create("div", "kl-quotecomposition-image", this._el.composition_container);
 
 		// Create Buttons
-		this._el.button_group 			= KL.Dom.create("div", "btn-group", this._el.container);
-		this._el.button_make 			= KL.Dom.create("div", "btn btn-primary btn-right", this._el.button_group);
+		this._el.button_group 			= KL.Dom.create("div", "kl-button-group", this._el.container);
+		this._el.button_download 		= KL.Dom.create("a", "kl-button kl-button-right", this._el.button_group);
 
-		this._el.button_make.innerHTML = "<span class='glyphicon glyphicon-circle-arrow-down'></span> Save";
+		this._el.button_download.innerHTML = "Save";
 
 		// Listener for save button
-		KL.DomEvent.addListener(this._el.button_make, 'click', this._onMake, this);
+		KL.DomEvent.addListener(this._el.button_download, 'click', this._onDownload, this);
 
 		this._render();
 	},
