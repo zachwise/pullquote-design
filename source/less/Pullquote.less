@@ -1,0 +1,224 @@
+/*!
+	Pullquote
+	Designed and built by Zach Wise
+*/
+
+/* SIZES
+================================================== */
+@quote-composition-width: 505px;
+@quote-composition-height: 283px;
+
+/* COLORS
+================================================== */
+@gray-base:              #000;
+@gray-darker:            lighten(@gray-base, 13.5%); // #222
+@gray-dark:              #212121;
+@gray:                   #666;
+@gray-light:             #bbb;
+@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
+
+
+/* TYPOGRAPHY
+================================================== */
+@font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       'Lora', Georgia, "Times New Roman", Times, serif;
+
+
+
+@font-size-base:          19px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+@line-height-base:        1.846; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+
+/* MIXINS
+================================================== */
+.background-gradient(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+	background-image: -webkit-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Safari 5.1-6, Chrome 10+
+	background-image: -o-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Opera 12
+	background-image: linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+	background-repeat: repeat-x;
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
+}
+
+/* QUOTE
+================================================== */
+.kl-quotecomposition {
+	width:@quote-composition-width;
+	width: 505px;
+	margin:0;
+	margin:25px;
+	float:left;
+
+	.btn-group {
+		//display:block;
+		margin-left:auto;
+		margin-right:auto;
+		width:@quote-composition-width;
+		//height:@quote-composition-height;
+		text-align:center;
+		.btn-right {
+			float:right;
+		}
+		.btn-primary {
+			
+		}
+	}
+	.kl-quotecomposition-container {
+		position:relative;
+		width:@quote-composition-width;
+		height:@quote-composition-height;
+		background-color:#000;
+
+		display:inline-block;
+		.kl-quotecomposition-text {
+			position:absolute;
+			display:flex;
+			align-items: center;
+			justify-content: center;
+			height:100%;
+			width:100%;
+			z-index:3;
+			overflow:hidden;
+
+			blockquote {
+				color:#EEE;
+				font-family: @font-family-serif;
+				padding:0;
+				font-size: (@font-size-base * 1.2);
+				line-height:(@font-size-base * 1.6);
+				font-weight:200;
+				border:none;
+				margin:0;
+				margin-left:5%;
+				margin-right:5%;
+				width:100%;
+				//text-shadow: 3px 3px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+				text-shadow: 2px 2px 4px fadeout(#000, 25%);
+				p {
+					text-align:left;
+					
+					&[contenteditable="true"] {
+						padding: 5px;
+						outline: 2px dashed fadeout(#CCC, 75);
+					}
+					&[contenteditable="true"]:hover {
+						//padding: 10px; 
+						outline: 2px dashed #CCC;
+					}
+
+					&:before {
+						content:"“";
+						color:@gray-light;
+						//margin:-15px;
+					}
+					&:after {
+						content:"”";
+						color:@gray-light;
+					}
+				}
+				cite {
+					padding: 5px;
+					padding-right:10px;
+					&[contenteditable="true"] {
+						//padding: 5px;
+						outline: 2px dashed fadeout(#CCC, 75);
+					}
+					&[contenteditable="true"]:hover {
+						//padding: 10px; 
+						outline: 2px dashed #CCC;
+					}
+					&:before {
+						content:"— ";
+						color:@gray-light;
+					}
+					display:block;
+					font-size: 12px;
+					text-align:right;
+					position:absolute;
+					bottom:0;
+					right:0;
+				}
+			}
+		}
+
+		.kl-quotecomposition-background {
+			width:@quote-composition-width;
+			height:@quote-composition-height;
+			z-index:2;
+			opacity:0.5;
+			position:absolute;
+			top:0;
+			left:0;
+			background-color:#000;
+		}
+
+		.kl-quotecomposition-image {
+			z-index:1;
+			width:100%;
+			//opacity:0.5;
+			width:@quote-composition-width;
+			height:@quote-composition-height;
+			background-size:cover;
+			background-position: center center;
+		}
+	}
+
+	&.kl-anchor-right {
+		.kl-quotecomposition-container {
+			.kl-quotecomposition-text {
+				blockquote {
+					p {
+						text-align:right;
+						margin-left:50%;
+						font-size: (@font-size-base * 1);
+						line-height:(@font-size-base * 1.4);
+					}
+				}
+			}
+			.kl-quotecomposition-image {
+				//opacity:0.7;
+			}
+			.kl-quotecomposition-background {
+				opacity:1;
+				width:60%;
+				margin-left:40%;
+				background-color:transparent;
+				.background-gradient(rgba(0,0,0,0.0001); rgba(0,0,0,0.6); 0%; 15%);
+			}
+		}
+
+	}
+	&.kl-anchor-left {
+		.kl-quotecomposition-container {
+			.kl-quotecomposition-text {
+				blockquote {
+					p {
+						text-align:left;
+						margin-right:50%;
+						font-size: (@font-size-base * 1);
+						line-height:(@font-size-base * 1.4);
+					}
+				}
+			}
+
+			.kl-quotecomposition-image {
+				//opacity:0.7;
+			}
+			.kl-quotecomposition-background {
+				opacity:1;
+				width:60%;
+				background-color:transparent;
+				.background-gradient(rgba(0,0,0,0.6); rgba(0,0,0,0.0001); 85%; 100%);
+			}
+		}
+		
+	}
+}
+
+
+
+
