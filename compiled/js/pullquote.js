@@ -7556,10 +7556,14 @@ KL.QuoteComposition = KL.Class.extend({
 				//document.body.appendChild(canvas);
 
 				var dataURL = canvas.toDataURL('image/png');
+				//var dataURL = canvas.toBlob();
 				_self._el.button_download.href=dataURL;
 				_self._el.button_download.download = "pullquote.png";
 				_self.options.download_rendered = true;
-				_self._onDownload(e);
+				_self._onDownload();
+
+				
+				
 			}
 		});
 	},
