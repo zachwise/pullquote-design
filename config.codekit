@@ -369,6 +369,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/source\/js\/library\/html2canvas.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/source\/js\/library\/html2canvas.js",
+		"outputAbbreviatedPath": "\/source\/js\/library\/min\/html2canvas-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/source\/js\/Pullquote.js": {
 		"fileType": 64,
 		"ignore": 0,

@@ -31,7 +31,6 @@
 	// @codekit-prepend "quote/KL.QuoteComposition.js";
 
 
-
  
 
 KL.Pullquote = (function() {

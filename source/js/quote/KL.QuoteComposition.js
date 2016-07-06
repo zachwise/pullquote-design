@@ -2,6 +2,8 @@
 ================================================== */
 // TODO: Animate into existince
 
+// HTML TO CANVAS
+	// @codekit-prepend "../library/html2canvas.js";
 
 KL.QuoteComposition = KL.Class.extend({
 	
@@ -87,6 +89,15 @@ KL.QuoteComposition = KL.Class.extend({
 		// }
 		// var win = window.open(window.location.origin + "/composition.html" + url_vars, '_blank');
 		// win.focus();
+
+		html2canvas(this._el.composition_container, {
+			width: this._el.composition_container.offsetWidth,
+			allowTaint:true,
+			onrendered: function(canvas) {
+				trace("RENDERED");
+				document.body.appendChild(canvas);
+			}
+		});
 	},
 
 	_onLoaded: function() {
