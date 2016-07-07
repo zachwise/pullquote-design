@@ -112,11 +112,17 @@ KL.QuoteComposition = KL.Class.extend({
 		// _self._el.image.style.height="566px";
 		// //_self._el.composition_container.style.display="block";
 		// _self._el.container.style.float="none";
+		this._el.composition_container.style.transformOrigin = "left top";
+		this._el.composition_container.style.transform = "scale(2)";
+		// _self._el.composition_container.style.width="1010px";
+		// _self._el.composition_container.style.height="566px";
 
 		html2canvas(this._el.composition_container, {
 			useCORS:"true",
 			letterRendering:"true",
 			logging:true,
+			width:1010,
+			height:566,
 			onrendered: function(canvas) {
 				trace("RENDERED");
 				
@@ -126,9 +132,10 @@ KL.QuoteComposition = KL.Class.extend({
 				_self._el.button_download.download = "pullquote.png";
 				_self.options.download_rendered = true;
 				_self._onDownload();
-				// _self._el.composition_container.style.transform="scale(1,1)";
+				_self._el.composition_container.style.transform="scale(1)";
 				// _self._el.composition_container.style.width="505px";
 				// _self._el.composition_container.style.height="283px";
+
 				
 			}
 		});

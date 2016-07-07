@@ -62,15 +62,18 @@ KL.PullquoteRender = (function() {
 		width: 				window.innerWidth,
 		height: 			window.innerHeight
 	};
-
+	this.el.composition.style.marginRight = "auto";
 	this.vars = KL.Util.getUrlVars(window.location.href);
 
 	this.el.quote_text.innerHTML = decodeURIComponent(this.vars.quote);
 	this.el.cite.innerHTML = decodeURIComponent(this.vars.cite);
 	this.el.image.style.backgroundImage = "url(" + this.vars.image + ")";
 	this.el.composition.className = "kl-quotecomposition kl-anchor-" + this.vars.anchor;
+	console.log(this,el.composition.offsetWidth)
 	
-
+	this.el.composition.style.transformOrigin = "left top";
+	this.el.composition.style.transform = "scale(2)";
+	console.log(this,el.composition.offsetWidth)
 })();
 
 // KL.Util.getUrlVars(window.location.href)
