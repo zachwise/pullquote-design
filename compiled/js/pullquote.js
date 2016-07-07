@@ -7447,6 +7447,15 @@ function hasEntries(array) {
 ================================================== */
 // TODO: Animate into existince
 
+// CORE
+	// @codekit-prepend "core/KL.js";
+	// @codekit-prepend "core/KL.Util.js";
+	// @codekit-prepend "core/KL.Class.js";
+	// @codekit-prepend "core/KL.Events.js";
+	// @codekit-prepend "core/KL.Browser.js";
+	// @codekit-prepend "core/KL.Load.js";
+	// @codekit-prepend "data/KL.Data.js";
+
 // HTML TO CANVAS
 	// @codekit-prepend "../library/html2canvas.js";
 
@@ -7521,6 +7530,13 @@ KL.QuoteComposition = KL.Class.extend({
 		this.fire("clicked", this.options);
 	},
 
+	_onContentEdit: function() {
+		trace("CONTENT EDIT");
+		this.data.quote = this._el.blockquote_p.innerHTML;
+		var quote_detail = this._determineTextSize(this.data.quote);
+		this._el.blockquote.className = quote_detail.sizeclass;
+	},
+
 	_onDownload: function(e) {
 		if (this.options.download_rendered) {
 			this._el.button_download.click();
@@ -7569,7 +7585,6 @@ KL.QuoteComposition = KL.Class.extend({
 			width:1010,
 			height:566,
 			onrendered: function(canvas) {
-				trace("RENDERED");
 				
 				var dataURL = canvas.toDataURL('image/png');
 				
@@ -7608,12 +7623,20 @@ KL.QuoteComposition = KL.Class.extend({
 			} else if (q.length < 500) {
 				quote_detail.sizeclass = "kl-quote-small";
 			} else {
-				quote_detail.sizeclass = "kl-quote-ellipsis";
+				if (KL.Browser.webkit) {
+					quote_detail.sizeclass = "kl-quote-ellipsis";
+				} else {
+					quote_detail.sizeclass = "kl-quote-ellipsis-non-webkit";
+				}
+				
 			}
 		} else {
 			if (q.length > 150) {
-				trace("TOO LONG FOR ANCHOR");
-				quote_detail.sizeclass = "kl-quote-ellipsis";
+				if (KL.Browser.webkit) {
+					quote_detail.sizeclass = "kl-quote-ellipsis";
+				} else {
+					quote_detail.sizeclass = "kl-quote-ellipsis-non-webkit";
+				}
 			}
 		}
 		
@@ -7624,7 +7647,6 @@ KL.QuoteComposition = KL.Class.extend({
 	_render: function() {
 		var quote_detail = this._determineTextSize(this.data.quote);
 		this._el.blockquote.className = quote_detail.sizeclass;
-		trace(quote_detail)
 		this._el.blockquote_p.innerHTML = quote_detail.quote;
 
 		this._el.citation.innerHTML = this.data.cite;
@@ -7675,6 +7697,10 @@ KL.QuoteComposition = KL.Class.extend({
 	
 	_initEvents: function () {
 		KL.DomEvent.addListener(this._el.container, 'click', this._onMouseClick, this);
+		if (this.options.editable) {
+			KL.DomEvent.addListener(this._el.blockquote_p, 'input', this._onContentEdit, this);
+		}
+		
 	}
 	
 	
