@@ -7544,25 +7544,36 @@ KL.QuoteComposition = KL.Class.extend({
 		// }
 		// var win = window.open(window.location.origin + "/composition.html" + url_vars, '_blank');
 		// win.focus();
+
+
 		var _self = this;
+		// _self._el.composition_container.style.transform="scale(1.5)";
+		// _self._el.composition_container.style.position="static";
+		// _self._el.composition_container.style.width="1010px";
+		// _self._el.composition_container.style.height="566px";
+		// _self._el.background.style.width="1010px";
+		// _self._el.background.style.height="566px";
+		// _self._el.image.style.width="1010px";
+		// _self._el.image.style.height="566px";
+		// //_self._el.composition_container.style.display="block";
+		// _self._el.container.style.float="none";
+
 		html2canvas(this._el.composition_container, {
-			//width: this._el.composition_container.offsetWidth,
-			//allowTaint:true,
 			useCORS:"true",
 			letterRendering:"true",
 			logging:true,
 			onrendered: function(canvas) {
 				trace("RENDERED");
-				//document.body.appendChild(canvas);
-
+				
 				var dataURL = canvas.toDataURL('image/png');
-				//var dataURL = canvas.toBlob();
+				
 				_self._el.button_download.href=dataURL;
 				_self._el.button_download.download = "pullquote.png";
 				_self.options.download_rendered = true;
 				_self._onDownload();
-
-				
+				// _self._el.composition_container.style.transform="scale(1,1)";
+				// _self._el.composition_container.style.width="505px";
+				// _self._el.composition_container.style.height="283px";
 				
 			}
 		});
@@ -7781,8 +7792,6 @@ KL.Pullquote = (function() {
 
 	/*	EVENTS
 	================================================== */
-
-
 	window.onresize = function(event) {
 
 		this.options.width = window.innerWidth;

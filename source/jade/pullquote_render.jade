@@ -1,0 +1,36 @@
+include includes/mixins
+
+doctype html
+html(lang="en")
+	head
+		meta(charset='utf-8')
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		meta(name='apple-mobile-web-app-capable', content='yes')
+		meta(name='apple-touch-fullscreen', content='yes')
+
+		title Pullquote Render
+
+		// CSS
+		link(rel='stylesheet', href='css/pullquote.css?v4')
+
+		style.
+			body {
+				margin:0;
+				padding:0;
+			}
+
+	body
+
+		div.kl-quotecomposition#kl-quote-comp
+			div.kl-quotecomposition-container
+				div.kl-quotecomposition-text
+					blockquote
+						p#kl-quote-text The global mood increasingly feels like one of atavism, of retreat into narrower identities of nation, politics or sect.
+						cite#kl-quote-cite The New York Times
+				div.kl-quotecomposition-background
+				div.kl-quotecomposition-image#kl-quote-image(style="background-image:url(https://static01.nyt.com/images/2016/07/07/nytnow/06nytnow-clinton4/06nytnow-clinton4-facebookJumbo.jpg);")
+
+
+		// JavaScript
+		script(type='text/javascript', src='js/pullquote-render.js?v10')

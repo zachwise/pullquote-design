@@ -1,5 +1,6 @@
 /**
-	Pullquote
+	Pullquote Render
+	Renders a single Pullquote based on url variables
 	Designed and built by Zach Wise at Knight Lab
 */   
 
@@ -36,7 +37,17 @@
 
  
 
-KL.PullquoteComposition = (function() {
+/*	PullquoteRender
+	Use URL vars to render a Pullquote
+	Example: http://localhost:8080/pullquote_render.html?quote=test&cite=citation&image=https://static01.nyt.com/images/2016/07/05/us/06OBAMACLINTON-hp/06OBAMACLINTON-hp-facebookJumbo.jpg
+
+	Variables:
+	quote,
+	cite,
+	image,
+	anchor (null, left, right)
+	================================================== */
+KL.PullquoteRender = (function() {
 
 	// DOM ELEMENTS
 	this.el = {
@@ -52,17 +63,17 @@ KL.PullquoteComposition = (function() {
 		height: 			window.innerHeight
 	};
 
-	// this.vars = KL.Util.getUrlVars(window.location.href);
+	this.vars = KL.Util.getUrlVars(window.location.href);
 
-	// this.el.quote_text.innerHTML = decodeURIComponent(this.vars.quote);
-	// this.el.cite.innerHTML = decodeURIComponent(this.vars.cite);
-	// this.el.image.style.backgroundImage = "url(" + this.vars.image + ")";
-	// this.el.composition.className = "kl-quotecomposition kl-anchor-" + this.vars.anchor;
+	this.el.quote_text.innerHTML = decodeURIComponent(this.vars.quote);
+	this.el.cite.innerHTML = decodeURIComponent(this.vars.cite);
+	this.el.image.style.backgroundImage = "url(" + this.vars.image + ")";
+	this.el.composition.className = "kl-quotecomposition kl-anchor-" + this.vars.anchor;
 	
 
 })();
 
-//KL.Util.getUrlVars(window.location.href)
+// KL.Util.getUrlVars(window.location.href)
 
 
 

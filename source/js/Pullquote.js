@@ -117,8 +117,6 @@ KL.Pullquote = (function() {
 
 	/*	EVENTS
 	================================================== */
-
-
 	window.onresize = function(event) {
 
 		this.options.width = window.innerWidth;
