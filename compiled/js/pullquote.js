@@ -7498,6 +7498,7 @@ KL.QuoteComposition = KL.Class.extend({
 			anchor: false,
 			classname: "",
 			base_classname: "kl-quotecomposition",
+			use_image: true,
 			download_rendered: false
 		};
 	
@@ -7650,7 +7651,10 @@ KL.QuoteComposition = KL.Class.extend({
 		this._el.blockquote_p.innerHTML = quote_detail.quote;
 
 		this._el.citation.innerHTML = this.data.cite;
-		this._el.image.style.backgroundImage = "url('" + this.data.image + "')";
+		if (this.options.use_image) {
+			this._el.image.style.backgroundImage = "url('" + this.data.image + "')";
+		}
+		
 
 		this._el.blockquote_p.contentEditable = this.options.editable;
 		this._el.citation.contentEditable = this.options.editable;
@@ -7745,9 +7749,8 @@ KL.Pullquote = (function() {
 
 	// DOM ELEMENTS
 	this.el = {
-		cover_content: 		KL.Dom.get("cover-content"),
-		examples: 			KL.Dom.get("examples"),
-		examples_content: 	{},
+		container: 			KL.Dom.get("pullquote-container"),
+		container_content: 	{},
 
 	};
 
@@ -7766,62 +7769,82 @@ KL.Pullquote = (function() {
 	// Quote Compositions
 	this.quote_compositions = [];
 
+	// Data
+	this.data = {
+		quote: "Quote",
+		cite: "Citation",
+		image: "https://static01.nyt.com/images/2016/07/05/us/06OBAMACLINTON-hp/06OBAMACLINTON-hp-facebookJumbo.jpg",
+		headline: "Headline",
+		credit: ""
+	};
+
 	//this._el.menubar			= VCO.Dom.create('div', 'vco-menubar', this._el.container);
 	
 	// API URL
-	this.api_url = "quotes.json";
+	//this.api_url = "quotes.json";
 
 	// LOAD EXAMPLE QUOTES
 	this.load_quotes = function() {
+		this.vars = KL.Util.getUrlVars(window.location.href);
+		KL.Util.mergeData(this.data, vars);
 
-		KL.getJSON(api_url ,function(d) {
-			this.createQuoteObjects(d);
-			this.createCompositions(d);
-		});
+		// LAYOUT
+		this.el.container.innerHTML = "";
+		this.el.container_content = KL.Dom.create('div', 'editor-content', this.el.container);
+
+		// Create Quotes
+		this.createComposition(this.data, false, true);
+		this.createComposition(this.data, "left", true);
+		this.createComposition(this.data, "right", true);
+		this.createComposition(this.data, false, false);
+
+		// KL.getJSON(api_url ,function(d) {
+		// 	this.createQuoteObjects(d);
+		// 	this.createCompositions(d);
+		// });
 	};
 
 	// CREATE COMPOSITIONS
-	this.createCompositions = function(d) {
+	// this.createCompositions = function(d) {
 
-		this.quote_compositions = [];
+	// 	this.quote_compositions = [];
 		
-		// LAYOUT
-		this.el.examples.innerHTML = "";
-		this.el.examples_content = KL.Dom.create('div', 'editor-content', this.el.examples);
+	// 	// LAYOUT
+	// 	this.el.container.innerHTML = "";
+	// 	this.el.container_content = KL.Dom.create('div', 'editor-content', this.el.container);
 
+	// 	for (i=0; i < this.quotes.length; i++) {
+	// 		this.createComposition(this.quotes[i], false);
+	// 		this.createComposition(this.quotes[i], "left");
+	// 		this.createComposition(this.quotes[i], "right");
+	// 	}
 
-		for (i=0; i < this.quotes.length; i++) {
-			this.createComposition(this.quotes[i], false);
-			this.createComposition(this.quotes[i], "left");
-			this.createComposition(this.quotes[i], "right");
-		}
+	// };
 
-	};
-
-	this.createComposition = function(d, anchor) {
-		var composition = new KL.QuoteComposition(d, {anchor:anchor});
-		composition.addTo(this.el.examples_content);
+	this.createComposition = function(d, anchor, use_image) {
+		var composition = new KL.QuoteComposition(d, {anchor:anchor, use_image:use_image});
+		composition.addTo(this.el.container_content);
 		this.quote_compositions.push(composition);
 	};
 
-	this.createQuoteObjects = function(d) {
-		this.quotes = [];
+	// this.createQuoteObjects = function(d) {
+	// 	this.quotes = [];
 
-		for (i=0; i < d.quotes.length; i++) {
-			var quote = {
-				quote: "",
-				cite: "",
-				credit: "",
-				headline:"",
-				image: ""
-			};
+	// 	for (i=0; i < d.quotes.length; i++) {
+	// 		var quote = {
+	// 			quote: "",
+	// 			cite: "",
+	// 			credit: "",
+	// 			headline:"",
+	// 			image: ""
+	// 		};
 
-			quote = d.quotes[i];
+	// 		quote = d.quotes[i];
 
-			this.quotes.push(quote);
+	// 		this.quotes.push(quote);
 
-		}
-	};
+	// 	}
+	// };
 
 	/*	EVENTS
 	================================================== */
