@@ -7615,6 +7615,8 @@ KL.QuoteComposition = KL.Class.extend({
 			sizeclass: "",
 			quote: q
 		}
+
+		quote_detail.quote = quote_detail.quote.replace(/%20| /g, ' '); 
 		
 		if (!this.options.anchor) {
 			if (q.length < 125) {
@@ -7650,7 +7652,7 @@ KL.QuoteComposition = KL.Class.extend({
 		this._el.blockquote.className = quote_detail.sizeclass;
 		this._el.blockquote_p.innerHTML = quote_detail.quote;
 
-		this._el.citation.innerHTML = this.data.cite;
+		this._el.citation.innerHTML = this.data.cite.replace(/%20| /g, ' ');
 		if (this.options.use_image) {
 			this._el.image.style.backgroundImage = "url('" + this.data.image + "')";
 		}
